@@ -1,0 +1,124 @@
+---
+title: "Data Visualization with Plotly"
+author: "Hesa"
+date: "March 18, 2025"
+output: 
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(plotly)
+library(dplyr)
+```
+
+## Introduction
+
+- This presentation demonstrates the use of Plotly for creating interactive data visualizations in R
+- Plotly allows for creation of publication-quality charts with interactive features
+- Features include tooltips, zooming, and panning
+- Created on March 18, 2025
+
+## Interactive Data Visualization {.flexbox .vcenter}
+
+```{r plotly-visualization, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+# Sample temperature anomaly data
+years <- 1880:2024
+set.seed(123) # For reproducibility
+temp_anomalies <- cumsum(rnorm(length(years), mean=0.01, sd=0.1))
+
+# Create data frame
+climate_data <- data.frame(
+  Year = years,
+  TempAnomaly = temp_anomalies
+)
+
+# Create color gradient based on temperature values
+colors <- colorRampPalette(c("blue", "lightblue", "yellow", "orange", "red"))(100)
+color_indices <- cut(climate_data$TempAnomaly, breaks=100, labels=FALSE)
+
+# Create the Plotly figure
+p <- plot_ly(climate_data, x = ~Year, y = ~TempAnomaly, 
+             type = 'scatter', mode = 'lines+markers',
+             marker = list(size = 5, color = colors[color_indices]),
+             line = list(color = 'rgba(100, 100, 100, 0.5)'),
+             hoverinfo = 'text',
+             text = ~paste("Year:", Year, "<br>Temperature Anomaly:", round(TempAnomaly, 2), "°C")) %>%
+  layout(title = "Global Temperature Anomalies (1880-2024)",
+         xaxis = list(title = "Year"),
+         yaxis = list(title = "Temperature Anomaly (°C)"),
+         hovermode = "closest")
+
+p
+```
+
+## Code Behind the Visualization
+
+```{r code-example, eval=FALSE}
+# Create the Plotly figure
+p <- plot_ly(climate_data, x = ~Year, y = ~TempAnomaly, 
+             type = 'scatter', mode = 'lines+markers',
+             marker = list(size = 5, color = colors[color_indices]),
+             line = list(color = 'rgba(100, 100, 100, 0.5)'),
+             hoverinfo = 'text',
+             text = ~paste("Year:", Year, 
+                          "<br>Temperature Anomaly:", 
+                          round(TempAnomaly, 2), "°C")) %>%
+  layout(title = "Global Temperature Anomalies (1880-2024)",
+         xaxis = list(title = "Year"),
+         yaxis = list(title = "Temperature Anomaly (°C)"),
+         hovermode = "closest")
+```
+
+## Analysis
+
+Key observations:
+
+- Clear upward trend in temperature anomalies
+- Rate of increase appears to accelerate in recent decades
+- Year-to-year variability is significant
+- Long-term warming trend is unmistakable
+
+## Interactive Features
+
+This Plotly visualization includes:
+
+- **Hover tooltips**: Move your cursor over data points
+- **Zooming**: Click and drag to zoom
+- **Panning**: After zooming, click and drag to move
+- **Download**: Use camera icon to download the plot
+- **Reset**: Double-click to reset the view
+
+## Alternative Visualization: 3D Surface Plot
+
+```{r surface-plot, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=6}
+# Create sample 3D data
+x_seq <- seq(-5, 5, length.out = 50)
+y_seq <- seq(-5, 5, length.out = 50)
+z_matrix <- outer(x_seq, y_seq, function(x, y) sin(sqrt(x^2 + y^2)))
+
+# Create surface plot
+surface_plot <- plot_ly(x = x_seq, y = y_seq, z = z_matrix, type = "surface",
+                     colorscale = "Viridis") %>%
+  layout(title = "3D Surface Plot Example",
+         scene = list(
+           xaxis = list(title = "X"),
+           yaxis = list(title = "Y"),
+           zaxis = list(title = "Z")
+         ))
+
+surface_plot
+```
+
+## Conclusion
+
+- Plotly provides powerful tools for interactive data visualization
+- Enhances data exploration and communication
+- Interactive elements improve audience engagement
+- R + Plotly + R Markdown makes presentation creation smooth
+
+## Thank You!
+
+Created on: March 18, 2025
