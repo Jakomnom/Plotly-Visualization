@@ -6,7 +6,7 @@ This repository contains an interactive data visualization presentation created 
 Created: March 18, 2025
 
 ## Preview
-![Preview of Plotly Visualization](https://via.placeholder.com/800x400?text=Interactive+Plotly+Visualization)
+![Preview of Plotly Visualization](https://rpubs.com/jakriyan/globaltemperature)
 
 ## Features
 - Interactive time series visualization of global temperature anomalies (1880-2024)
