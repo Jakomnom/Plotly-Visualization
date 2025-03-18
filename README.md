@@ -54,7 +54,3 @@ Feel free to customize this presentation by:
 ## License
 MIT License
 
-## Contact
-Your Name - [your.email@example.com](mailto:your.email@example.com)
-
-Project Link: [https://github.com/yourusername/plotly-presentation](https://github.com/yourusername/plotly-presentation)
